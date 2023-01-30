@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>코딩애플과 함께하는 자바스크립트 기초 UI</title>
+    <link rel="stylesheet" href="main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body id="bo">
+    <!-- <h1 class="hello">안녕하세요!</h1>
+    <h1 id="hi">js초보에요</h1> -->
+
+    <script></script>
+    <div class="black-bg">
+      <div class="white-bg">
+        <h4>로그인 하세요!</h4>
+        <form action="success.html">
+          <div class="my-3">
+            <label for="idtext">아이디</label>
+            <input type="text" class="form-control" id="idtext" />
+          </div>
+          <div class="my-3">
+            <label for="password1">비밀번호</label>
+            <input type="password" class="form-control" id="password1" />
+          </div>
+          <button type="submit" class="btn btn-primary">전송</button>
+          <button type="button" class="btn btn-danger" id="close">닫기</button>
+        </form>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-light bg-light" style="position: fixed">
+      <div class="container-fluid">
+        <span class="navbar-brand">jsshop</span>
+        <span class="badge bg-dark">Dark 🔄</span>
+        <button class="navbar-toggler" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+        <li class="list-group-item">A fourth item</li>
+        <li class="list-group-item">And a fifth one</li>
+      </ul>
+    </nav>
+    <div class="line">ddddd</div>
+
+    <script>
+      $(window).on("scroll", function () {
+        if (window.scrollY > 100) {
+          $(".navbar-brand").css("font-size", "20px");
+        } else if (window.scrollY > 200) {
+          $(".navbar-brand").css("font-size", "25px");
+        }
+      });
+
+      $(".line").on("scroll", () => {
+        if (window.scrollY > 100) {
+          $(".line").css("width", "20%");
+        }
+      });
+    </script>
+
+    <script>
+      let badgeCount = 0;
+      document.querySelector(".badge").addEventListener("click", () => {
+        badgeCount += 1;
+        if (badgeCount % 2 == 1) {
+          document.querySelector("#bo").classList.add("darkM");
+          document.querySelector(".badge").innerHTML = "Light";
+        } else {
+          document.querySelector("#bo").classList.remove("darkM");
+          document.querySelector(".badge").innerHTML = "Dark 🔄";
+        }
+      });
+    </script>
+
+    <p class="hello">안녕!</p>
+    <p class="hello">안녕!</p>
+    <p class="hello">안녕!</p>
+    <p class="hello">안녕!</p>
+    <button id="test">버튼</button>
+
+    <button id="modal1">로그인</button>
+
+    <script>
+      $("#modal1").on("click", () => {
+        document.querySelector(".black-bg").classList.add("showModal");
+      });
+
+      $("#close").on("click", () => {
+        document.querySelector(".black-bg").classList.remove("showModal");
+      });
+
+      $(".black-bg").on("click", function (e) {
+        if (e.target == document.querySelector(".black-bg")) {
+          document.querySelector(".black-bg").classList.remove("showModal");
+        }
+      });
+      //; 유저가 실제로 누른 거
+      //e.currentTarget; 이벤트 리스너 달린 곳 (this라고 표현할 수 있음. )
+      //e.preventDefault 이벤트 기본 동작을 막아줌 ;
+      //e.stopPropagtion --> 이건 정확하게 뭔지 모르겠음.;
+
+      document
+        .querySelector(".navbar-toggler")
+        .addEventListener("click", function () {
+          document.querySelector(".list-group").classList.toggle("show");
+        });
+
+      // function opens(b) {
+      //   document.getElementById("alert").style.display = b;
+      // }
+
+      $(".hello").css("color", "red");
+      // $(".hello").addClass("show");
+      $(".hello").html("바보");
+
+      $("#test").on("click", () => {
+        $(".hello").slideUp();
+      });
+
+      // $(".black-bg").css("display", "none");
+      // $(".modal1").on("click", () => {
+      //   $(".black-bg").show();
+      // });
+      // $("#close").on("click", () => {
+      //   $(".black-bg").hide();
+      // });
+
+      $("form").on("submit", (e) => {
+        let idtext = document.querySelector("#idtext").value;
+        let password1 = document.querySelector("#password1").value;
+        if (/\S+@\S+.\S+/.test(idtext)) {
+          alert("이메일 형식이 아님");
+        }
+        if (idtext.trim() === "" || password1.trim() === "") {
+          e.preventDefault();
+          alert("공백입니다!");
+        } else if (password1.length < 6) {
+          e.preventDefault();
+          alert("비밀번호 길이가 작아요");
+        }
+      });
+    </script>
+
+    <div class="alert alert-danger">
+      <span id="num">5초</span> 이내 구매시 사은품 증정
+    </div>
+
+    <script>
+      let count = 5;
+      setInterval(() => {
+        count -= 1;
+        if (count >= 0) {
+          document.querySelector("#num").innerHTML = count;
+        } else {
+          document.querySelector(".alert").style.display = "none";
+        }
+      }, 1000);
+    </script>
+
+    <div class="slide-container">
+      <div class="slide-box">
+        <img src="./car1.png" />
+      </div>
+      <div class="slide-box">
+        <img src="car2.png" />
+      </div>
+      <div class="slide-box">
+        <img src="./car3.png" />
+      </div>
+    </div>
+    <button class="prev">이전</button>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">다음</button>
+
+    <script>
+      $(".slide-1").on("click", function () {
+        // $(".slide-container").css("transform", "translateX(0vw)");
+        document.querySelector(".slide-container").style.transform =
+          "translateX(0vw)";
+      });
+
+      $(".slide-2").on("click", function () {
+        // $(".slide-container").css("transform", "translateX(-100vw)");
+        document.querySelector(".slide-container").style.transform =
+          "translateX(-100vw)";
+      });
+
+      $(".slide-3").on("click", function () {
+        // $(".slide-container").css("transform", "translateX(200vw)");
+        document.querySelector(".slide-container").style.transform =
+          "translateX(-200vw)";
+      });
+      let frist = 1;
+      let second = 3;
+
+      $(".next").on("click", () => {
+        if (frist === 1) {
+          document.querySelector(".slide-container").style.transform =
+            "translateX(-100vw)";
+          frist++;
+        } else if (frist === 2) {
+          document.querySelector(".slide-container").style.transform =
+            "translateX(-200vw)";
+          frist++;
+        } else if (frist === 3) {
+          document.querySelector(".slide-container").style.transform =
+            "translateX(0vw)";
+          frist -= 2;
+        }
+      });
+
+      $(".prev").on("click", () => {
+        if (frist === 1) {
+          document.querySelector(".slide-container").style.transform =
+            "translateX(100vw)";
+          frist++;
+        } else if (frist === 2) {
+          document.querySelector(".slide-container").style.transform =
+            "translateX(200vw)";
+          frist++;
+        } else if (frist === 3) {
+          document.querySelector(".slide-container").style.transform =
+            "translateX(-200vw)";
+          frist -= 2;
+        }
+      });
+    </script>
+
+    <div class="lorem" style="width: 200px; height: 100px; overflow-y: scroll">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae voluptas
+      voluptatum minus praesentium fugit debitis at, laborum ipsa itaque placeat
+      sit, excepturi eius. Nostrum perspiciatis, eligendi quae consectetur
+      praesentium exercitationem.
+    </div>
+
+    <div style="height: 1000px"></div>
+
+    <script>
+      //div의 스크롤바 내린양 + 눈에 보이는 div 높이 === div의 실제높이
+      $(".lorem").on("scroll", function () {
+        let 스크롤양 = document.querySelector(".lorem").scrollTop;
+        let 실제높이 = document.querySelector(".lorem").scrollHeight;
+        let 높이 = document.querySelector(".lorem").clientHeight;
+        console.log(스크롤양, 실제높이, 높이);
+        if (스크롤양 + 높이 === 실제높이) {
+          alert("다 읽음 ");
+        }
+      });
+
+      $("html").on("scroll", function () {
+        let html높이 = document.documentElement.scrollHeight;
+        let 높이2 = document.querySelector("html").clientHeight;
+        let 스크롤양2 = window.scrollY;
+        if (html높이 + 높이2 === 스크롤양2) {
+          alert("다 읽음 ");
+        }
+      });
+
+      // window.addEventListener("scroll", function () {
+      //   // 스크롤을 내가 원하는 곳으로 이동시킴. -> window.scrollTo(0, 100);
+      //   // 스크롤을 100만큼 내려줌. window.scrollBy(0, 100)
+      //   $(window).on("scroll", function () {
+      //     $(window).scrolltop(100);
+      //   });
+      // });
+    </script>
+
+    <!-- one-way UI 애니메이션
+    1. 시작스타일
+    2. 최종스타일 각각 클래스를 만든다. 
+    3. 원할 때 최종스타일 변경하라고 코드 짬
+    4. 트랜지션 줌-->
+    <script>
+      //   let hello = document.querySelector(".hello");
+      //   let hi = document.querySelector("#hi");
+      //   hello.innerHTML = "안녕";
+      //   hello.style.color = "red";
+      //   hello.style.fontSize = "16px";
+      //   hi.innerHTML = "초고수에요!";
+      //   hi.style.color = "green";
+
+      // function 아이디알림창(a) {
+      //   document.getElementById("title").innerHTML = a;
+      //   document.getElementById("alert").style.display = "block";
+      // }
+
+      // function 비번알림창() {
+      //   document.getElementById("title").innerHTML = "비번입력해주세요!";
+      //   document.getElementById("alert").style.display = "block";
+      // }
+
+      // document.getElementById("close").addEventListener("click", function () {
+      //   document.getElementById("alert").style.display = "none";
+      // });
+
+      //가장 첫번째 것을 찾음;
+      //배열로 찾아줌 [] 인덱싱을 해서 찾으면 됨;
+
+      // document.getElementById("idtext").addEventListener("input", () => {});
+      // //input에서 값이 변할 때 나옴 change랑 비슷함.
+
+      // setTimeout(() => {
+      //   document.querySelector(".alert").style.display = "none";
+      // }, 1000);
+
+      // 1. 다음버튼을 누르면 지금 보이는 사진이 1이면 2번 사진 보여주세요
+      // 2. 다음버튼을 누르면 지금 보이는 사진이 2이면 3번 사진 보여주세요
+      // 3. 다음버튼을 누르면 지금 보이는 사진이 3이면 1번 사진 보여주세요
+
+      // let badgeCount = 0;
+      // $(".badge").on("click", () => {
+      //   badgeCount += 1;
+      //   if (badgeCount % 2 == 1) {
+      //     $("#bo").addClass("darkM");
+      //     $(".badge").html("Light");
+      //   } else {
+      //     $("#bo").removeClass("darkM");
+      //     $(".badge").html("Dark 🔄");
+      //   }
+      // });
+    </script>
+  </body>
+</html>

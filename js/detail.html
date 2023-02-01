@@ -182,6 +182,142 @@
         <p>코딩인생 망한다</p>
       </div>
     </div>
-    <script></script>
+
+
+    <style>
+
+      #popupDiv{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 500px;
+        height: 500px;
+        border: 1px solid;
+        background: white;
+      }
+
+      #popupDiv > .contents{
+        width: 500px;
+        height: 500px;
+      }
+      #popupDiv .contents > a > img{
+        width: 100%;
+        height: 100%;
+      }
+      #popupDiv > .footer-td{
+        display: flex;
+      }
+
+      #popupDiv > .footer-td > a{
+        display: block;
+        width: 50%;
+        text-align: center;
+        border: 1px solid black;
+        background: white;
+      }
+    </style>
+
+    <div id="popupDiv" class="popup">
+
+      <div class="contents" id="popup_1">
+    
+       <a href="#" target="_blank"><img src="./card4.png"> </a>
+    
+      </div>
+    
+      <div class="footer-td flex">
+    
+        <a href="#" class="btn-close">오늘하루열지않기</a>
+    
+        <a href="javascrpit:void(0)" class="close-modal">팝업닫기</a>
+    
+    </div>
+    
+    ​
+    
+    <script>
+    
+         let getCookie = function (cname) {
+    
+            let name = cname + "=";
+    
+            let ca = document.cookie.split(';');
+    
+            for(let i=0; i<ca.length; i++) {
+    
+                let c = ca[i];
+    
+                while (c.charAt(0)==' ') c = c.substring(1);
+    
+                if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+    
+            }
+    
+            return "";
+    
+        }
+    
+        // 쿠키획득
+    
+        let setCookie = function (cname, cvalue, exdays) {
+    
+            let todayDate = new Date();
+    
+            todayDate.setTime(todayDate.getTime() + (exdays*24*60*60*1000));    
+    
+            let expires = "expires=" + todayDate.toUTCString(); 
+    
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+    
+        }
+    
+        // 쿠키설정
+    
+        let couponClose = function(sta){
+    
+            if(sta == 1){
+    
+                setCookie("close","Y",1);//1을 7로 하면 일주일로 늘어남
+    
+            }
+    
+        // 시간설정
+    
+            $("#popupDiv").hide();
+    
+        }
+    
+        $(document).ready(function(){
+    
+            let cookiedata = document.cookie;
+    
+            if(cookiedata.indexOf("close=Y")<0){
+    
+                $("#popupDiv").show();
+    
+            }else{
+    
+                $("#popupDiv").hide();
+    
+            }
+    
+            //쿠키 데이터가 존재하지 않을경우 보이고 존재 할 경우 없어집니다
+    
+            $(".btn-close").click(function(){
+    
+                couponClose(1);
+    
+            });
+    
+            $('.close-modal').click(()=>{
+              $("#popupDiv").hide();
+            })
+        });
+    
+    
+        // .btn-close를 눌렀을 경우 couponClose가 0에서 1로 바뀌며 바뀌었을경우 setCookie("close","Y",1);설정이 들어가 #popupDiv를 숨기게 됩니다
+    
+    </script>
+   
   </body>
 </html>
